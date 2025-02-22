@@ -1,0 +1,72 @@
+[gd_scene load_steps=10 format=3 uid="uid://tqiwai3w58kv"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_cxamb"]
+[ext_resource type="Texture2D" uid="uid://bk0474n23agte" path="res://assets/sprites/knight.png" id="2_7toc7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oetuy"]
+atlas = ExtResource("2_7toc7")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xk27b"]
+atlas = ExtResource("2_7toc7")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a6ofc"]
+atlas = ExtResource("2_7toc7")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4w1df"]
+atlas = ExtResource("2_7toc7")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_eom7m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oetuy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xk27b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a6ofc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4w1df")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_avysc"]
+radius = 11.0454
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_jrn8x"]
+distance = -79.42
+
+[node name="Game" type="Node2D"]
+
+[node name="player" type="CharacterBody2D" parent="."]
+script = ExtResource("1_cxamb")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="player"]
+position = Vector2(1, -32)
+scale = Vector2(3.09375, 2.4375)
+sprite_frames = SubResource("SpriteFrames_eom7m")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.270618
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player"]
+position = Vector2(1, -15)
+shape = SubResource("CircleShape2D_avysc")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-1, -78)
+shape = SubResource("WorldBoundaryShape2D_jrn8x")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2(4, 4)
